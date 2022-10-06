@@ -32,31 +32,5 @@ contract NFT is ERC721URIStorage {
     return newItemId;
   }
 
-  // get the array of NFTs the user has purchased
-  function fetchMyNFTs() public view returns (MarketToken[] memory) {
-    uint totalItemCount = _tokenIds.current();
-    uint itemCount = 0;
-    uint currentIndex = 0;
 
-    // get the item count for the current user
-    for (uint i = 0; i < totalItemCount; i++) {
-      if (idToMarketToken[i + 1].owner == msg.sender) {
-        itemCount += 1;
-      }
-    }
-
-    MarketToken[] memory items = new MarketToken[](itemCount);
-
-    // populate the return array with the user's items
-    for (uint i = 0; i < totalItemCount; i++) {
-      if (idToMarketToken[i + 1].owner = msg.sender) {
-        uint currentId = idToMarketToken[i + 1].itemId;
-        MarketToken storage currentItem = idToMarketToken[currentId];
-        items[currentIndex] = currentItem;
-        currentIndex += 1;
-      }
-    }
-
-    return items;
-  }
 }

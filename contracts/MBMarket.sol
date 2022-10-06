@@ -45,7 +45,7 @@ contract MBMarket is ReentrancyGuard {
     address seller,
     address owner,
     uint256 price,
-    bool sold,
+    bool sold
   );
 
   function getListingPrice() public view returns (uint256) {
@@ -53,7 +53,7 @@ contract MBMarket is ReentrancyGuard {
   }
 
   // create market item to put up for sale
-  function mintMarketItem(
+  function makeMarketItem(
     address nftContract,
     uint tokenId,
     uint price
@@ -73,7 +73,7 @@ contract MBMarket is ReentrancyGuard {
       payable(msg.sender),
       payable(address(0)),
       price,
-      false,
+      false
     );
 
     IERC721(nftContract).transferFrom(msg.sender, address(this), tokenId);
@@ -85,9 +85,9 @@ contract MBMarket is ReentrancyGuard {
       msg.sender,
       address(0),
       price,
-      false,
+      false
     );
-  };
+  }
 
   function createMarketSale(
     address nftContract,
@@ -112,11 +112,12 @@ contract MBMarket is ReentrancyGuard {
     payable(owner).transfer(listingPrice);
   }
 
+  // get the unsold NFTs
   function fetchMarketTokens() public view returns(MarketToken[] memory) {
     uint itemCount = _tokenIds.current();
     uint unsoldItemCount = _tokenIds.current() - _tokensSold.current();
     uint currentIndex = 0;
-
+ 
     MarketToken[] memory items = new MarketToken[](unsoldItemCount);
 
     // iterate over the items created
@@ -129,6 +130,62 @@ contract MBMarket is ReentrancyGuard {
         currentIndex += 1;
       }
     }
+    return items;
+  }
+
+    // get the array of NFTs the user has purchased
+  function fetchMyNFTs() public view returns (MarketToken[] memory) {
+    uint totalItemCount = _tokenIds.current();
+    uint itemCount = 0;
+    uint currentIndex = 0;
+
+    // get the item count for the current user
+    for (uint i = 0; i < totalItemCount; i++) {
+      if (idToMarketToken[i + 1].owner == msg.sender) {
+        itemCount += 1;
+      }
+    }
+
+    MarketToken[] memory items = new MarketToken[](itemCount);
+
+    // populate the return array with the user's items
+    for (uint i = 0; i < totalItemCount; i++) {
+      if (idToMarketToken[i + 1].owner == msg.sender) {
+        uint currentId = idToMarketToken[i + 1].itemId;
+        MarketToken storage currentItem = idToMarketToken[currentId];
+        items[currentIndex] = currentItem;
+        currentIndex += 1;
+      }
+    }
+
+    return items;
+  }
+
+  // get an array of NFTs minted by the seller
+  function fetchItemsCreated() public view returns(MarketToken[] memory) {
+    uint totalItemCount = _tokenIds.current();
+    uint itemCount = 0;
+    uint currentIndex = 0;
+
+    // get the item count for the seller who minted the NFTs
+    for (uint i = 0; i < totalItemCount; i++) {
+      if (idToMarketToken[i + 1].seller == msg.sender) {
+        itemCount += 1;
+      }
+    }
+
+    MarketToken[] memory items = new MarketToken[](itemCount);
+
+    // populate the return array with the user's items
+    for (uint i = 0; i < totalItemCount; i++) {
+      if (idToMarketToken[i + 1].seller == msg.sender) {
+        uint currentId = idToMarketToken[i + 1].itemId;
+        MarketToken storage currentItem = idToMarketToken[currentId];
+        items[currentIndex] = currentItem;
+        currentIndex += 1;
+      }
+    }
+
     return items;
   }
 }
