@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: #90E0EF;
+  transition: all 0.2s;
+}
+
+a:hover {
+  opacity: 0.6;
+}
+
+a:active {
+  opacity: 1;
+}
+
+body {
+  background: linear-gradient(#0077B6, #CAF0F8);
+  font-size: 16px;
+  min-height: 100vh;
+  text-align: center;
+}
