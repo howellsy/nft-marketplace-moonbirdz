@@ -1,13 +1,24 @@
-# Sample Hardhat Project
+# Moonbirdz NFT Marketplace
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+## Smart Contracts
 
-Try running some of the following tasks:
+This app uses 2 smart contracts:
 
-```shell
-npx hardhat help
-npx hardhat test
-GAS_REPORT=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
+- `MBMarket.sol` - fetching NFTs, keeping track of sold/unsold NFTs, creating sales (buying transactions)
+- `NFT.sol` - for storing URIs and minting tokens
+
+## How to Deploy the Smart Contracts Locally
+
+Start a local Hardhat node with:
+
 ```
+yarn start:hardhat
+```
+
+Deploy the 2 smart contracts to the local node with:
+
+```
+yarn deploy:hardhat
+```
+
+> This command will also write the contract addresses to a file at `./config.js` where they can be consumed by the app.

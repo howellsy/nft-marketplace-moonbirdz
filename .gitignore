@@ -60,3 +60,6 @@ artifacts
 
 # Temporary private key file
 p-key.txt
+
+# Dynamically generated config file
+config.js

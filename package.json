@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "deploy:hardhat": "npx hardhat run scripts/deploy.js --network localhost",
+    "start:hardhat": "npx hardhat node",
     "start": "next start",
     "lint": "next lint"
   },
