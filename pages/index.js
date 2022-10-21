@@ -18,7 +18,7 @@ const Home = () => {
     const data = await marketContract.fetchMarketTokens();
 
     const items = await Promise.all(data.map(async (i) => {
-      const tokenUri = await tokenContract.tokenUri(i.tokenId);
+      const tokenUri = await tokenContract.tokenURI(i.tokenId);
       const meta = await axios.get(tokenUri);
 
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
@@ -68,7 +68,7 @@ const Home = () => {
 
   return (
     <div className='flex justify-center'>
-      <div className='px-4' style={{ maxWidth: '160px'}}>
+      <div className='px-4' style={{ maxWidth: '1600px'}}>
         <div className='grid grid-cols1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4'>
           {
             NFTs.map((nft, i) => (
