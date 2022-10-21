@@ -1,7 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
 const fs = require('fs');
 
-const projectId = '918fef4e57164802a0124aa383417868';
+const projectId = 'd37642168d0242199b8fd0a17eddf6bb';
 
 // @TODO improve how private key is provided
 const keyData = fs.readFileSync('./p-key.txt', {
@@ -17,11 +17,11 @@ module.exports = {
       chainId: 1337 // configuration standard
     },
     mumbai: {
-      url: `https://mainnet.infura.io/v3/${projectId}`,
+      url: `https://polygon-mainnet.infura.io/v3/${projectId}`,
       accounts: [ keyData ],
     },
     mainnet: {
-      url: `https://polygon-mainnet.infura.io/v3/${projectId}`,
+      url: `https://mainnet.infura.io/v3/${projectId}`,
       accounts: [ keyData ],
     }
   },
