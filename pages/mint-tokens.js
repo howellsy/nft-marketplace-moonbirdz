@@ -92,9 +92,10 @@ const MintItem = () => {
     router.push('./');
   };
 
-  return(
-    <div className='flex justify-center'>
-      <div className='w-1/2 flex flex-col pb-12'>
+  return (
+    <div className='flex flex-col p-4 items-center'>
+      <h1 className='font-bold text-lg'>Mint tokens and list them for sale in the marketplace</h1>
+      <div className='w-1/2 flex flex-col'>
         <input 
           name='asset-name'
           placeholder='Asset name'
